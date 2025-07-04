@@ -1,0 +1,143 @@
+// Create a simple UI with Roblox icon, ESP and Aimbot buttons
+// Assumes basic knowledge of Roblox Lua scripting (not JavaScript)
+// Since the request is for JavaScript, but Roblox scripting is Lua-based,
+// here's a conceptual JavaScript-like pseudocode to illustrate the logic
+// Note: For actual Roblox implementations, use Lua. This is a conceptual representation.
+
+(function() {
+    // Create a container for the buttons
+    const uiContainer = document.createElement('div');
+    uiContainer.style.position = 'absolute';
+    uiContainer.style.top = '10px';
+    uiContainer.style.left = '10px';
+    uiContainer.style.zIndex = '9999';
+
+    // Create Roblox icon (placeholder)
+    const robloxIcon = document.createElement('div');
+    robloxIcon.innerText = '🕹️'; // Placeholder icon
+    robloxIcon.style.fontSize = '40px';
+    robloxIcon.style.marginBottom = '10px';
+    uiContainer.appendChild(robloxIcon);
+
+    // Function to create toggle buttons
+    function createToggleButton(label) {
+        const button = document.createElement('button');
+        button.innerText = label;
+        button.style.display = 'block';
+        button.style.width = '100px';
+        button.style.margin = '5px 0';
+        button.style.padding = '10px';
+        button.style.fontSize = '14px';
+        button.style.cursor = 'pointer';
+        return button;
+    }
+
+    // Create ESP toggle button
+    const espButton = createToggleButton('ESP');
+    let espEnabled = false;
+
+    // Create Aimbot toggle button
+    const aimbotButton = createToggleButton('Aimbot');
+    let aimbotEnabled = false;
+
+    // Append buttons to container
+    uiContainer.appendChild(espButton);
+    uiContainer.appendChild(aimbotButton);
+
+    // Append UI to document body
+    document.body.appendChild(uiContainer);
+
+    // Placeholder for ESP highlighting logic
+    let espInterval = null;
+
+    espButton.onclick = () => {
+        espEnabled = !espEnabled;
+        if (espEnabled) {
+            // Highlight all players
+            espButton.style.backgroundColor = 'lightblue';
+            espButton.style.color = 'white';
+
+            // Start ESP loop
+            espInterval = setInterval(() => {
+                // For each player, add or update highlight
+                // Pseudo-code:
+                /*
+                for (const player of game.Players:GetPlayers()) {
+                    if (player.Character && player.Character.PrimaryPart) {
+                        let highlight = player.Character.FindFirstChild('Highlight');
+                        if (!highlight) {
+                            highlight = Instance.new('Highlight', player.Character);
+                            highlight.Name = 'Highlight';
+                            highlight.FillColor = Color3.fromRGB(173, 216, 230); // Light blue
+                            highlight.OutlineColor = Color3.fromRGB(255, 255, 255); // White
+                            highlight.OutlineTransparency = 0;
+                        }
+                        highlight.Enabled = true;
+                    }
+                }
+                */
+            }, 100); // Repeat every 100ms
+        } else {
+            // Remove highlights
+            clearInterval(espInterval);
+            // Pseudo-code:
+            /*
+            for (const player of game.Players:GetPlayers()) {
+                if (player.Character) {
+                    const highlight = player.Character.FindFirstChild('Highlight');
+                    if (highlight) {
+                        highlight.Enabled = false;
+                    }
+                }
+            }
+            */
+            espButton.style.backgroundColor = '';
+            espButton.style.color = '';
+        }
+    };
+
+    // Placeholder for Aimbot logic
+    let aimbotInterval = null;
+    aimbotButton.onclick = () => {
+        aimbotEnabled = !aimbotEnabled;
+        if (aimbotEnabled) {
+            aimbotButton.style.backgroundColor = 'lightblue';
+            aimbotButton.style.color = 'white';
+
+            // Start Aimbot loop
+            aimbotInterval = setInterval(() => {
+                // Find nearest enemy player
+                // Pseudo-code:
+                /*
+                const localPlayer = game.Players.LocalPlayer;
+                const camera = workspace.CurrentCamera;
+                let targetPlayer = null;
+                let minDistance = Infinity;
+
+                for (const player of game.Players:GetPlayers()) {
+                    if (player !== localPlayer && player.Character && player.Character.PrimaryPart) {
+                        const distance = (player.Character.PrimaryPart.Position - localPlayer.Character.PrimaryPart.Position).magnitude;
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            targetPlayer = player;
+                        }
+                    }
+                }
+
+                if (targetPlayer && targetPlayer.Character && targetPlayer.Character.PrimaryPart) {
+                    // Smoothly move mouse to target position
+                    const targetPosition = camera.WorldToScreenPoint(targetPlayer.Character.PrimaryPart.Position);
+                    // Pseudo-code:
+                    /*
+                    // Implement smooth mouse movement towards targetPosition
+                    */
+                }
+                */
+            }, 50); // Repeat every 50ms
+        } else {
+            clearInterval(aimbotInterval);
+            aimbotButton.style.backgroundColor = '';
+            aimbotButton.style.color = '';
+        }
+    };
+})();
